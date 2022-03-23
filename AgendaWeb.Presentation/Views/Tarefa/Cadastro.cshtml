@@ -1,0 +1,107 @@
+﻿
+@* Definir a classe de modelo utilizada nesta página *@
+@model AgendaWeb.Presentation.Models.TarefaCadastroModel
+
+@{
+    
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<div>
+    <h5>Cadastro de Tarefas</h5>
+    <p> Preencha o formulário abaixo para incluir uma tarefa na sua agenda. </p>
+    <hr/>
+
+</div>
+
+
+       @* criando o formulario*@
+        @using(Html.BeginForm())
+    {
+        @* row(linha) espaço 3 *@
+        <div class="row mb-3"> 
+
+         @* col(coluna) espaço 6. coluna que vai preencher nome*@
+         <div class="col-md-6"> 
+           <label>Nome da tarefa:</label>
+          @Html.TextBoxFor(model => model.Nome,
+          new { @class = "form-control" })
+
+          <div class="text-danger">
+            @Html.ValidationMessageFor(model=>model.Nome)
+          </div>
+
+       </div>
+
+        @* col(coluna) espaço 3  coluna que vai preencher data*@
+         <div class="col-md-3"> 
+            <label>Data da tarefa:</label>
+           @Html.TextBoxFor(model => model.Data,
+           new { @class= "form-control", @type = "date" })
+
+            <div class="text-danger">
+            @Html.ValidationMessageFor(model=>model.Data)
+          </div>
+       </div>
+
+        @* col(coluna) espaço 3  coluna que vai preencher ho*@
+         <div class="col-md-3"> 
+              <label>Hora tarefa:</label>
+           @Html.TextBoxFor(model => model.Hora,
+           new { @class= "form-control", @type = "time" })
+
+            <div class="text-danger">
+            @Html.ValidationMessageFor(model=>model.Hora)
+          </div>
+       </div>
+
+
+   </div>
+    <div class="row mb-3"> 
+
+          @* col(coluna) espaço 9 coluna que vai preencher descricao *@
+       <div class="col-md-9"> 
+            <label>Descrição da tarefa:</label>
+          @Html.TextAreaFor(model => model.Descricao,
+           new {@class = "form-control", @type = "time"})
+
+            <div class="text-danger">
+            @Html.ValidationMessageFor(model=>model.Descricao)
+          </div>
+
+
+       </div>
+         @* col(coluna) espaço 3  coluna que vai preencher propriedade*@
+       <div class="col-md-3"> 
+
+          <label>Prioridade da tarefa</label>
+          <br/> 
+
+          @Html.RadioButtonFor(model => model.Prioridade, "1")
+                   <label>ALTA</label>  
+         <br/>
+
+
+           @Html.RadioButtonFor(model => model.Prioridade, "2")
+                  <label>MEDIO</label>  
+         <br/>
+          @Html.RadioButtonFor(model => model.Prioridade, "3")
+                  <label>BAIXO</label>  
+      
+          <div class="text-danger">
+            @Html.ValidationMessageFor(model=>model.Prioridade)
+          </div>
+
+       </div>
+
+
+   </div>
+    <div class="row mb-3"> 
+         @* col(coluna) espaço 3  coluna que vai ser o botom*@
+          <div class="col-md-12"> 
+
+             <input type="submit" value="Realizar Cadastro"
+               class="btn btn-success"/>
+       </div>
+   </div>
+}

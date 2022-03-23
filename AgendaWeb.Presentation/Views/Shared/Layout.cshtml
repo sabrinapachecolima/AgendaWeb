@@ -1,0 +1,96 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AgendaWeb</title>
+
+   <!-- referencias dos arquivos CSS do projeto -->
+    <link rel="stylesheet" href="/css/bootstrap.css"/>
+
+</head>
+<body>
+
+    <!--menu superior-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/Home/Index">AgendaWeb</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="Home/Index">Pagina inicial</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+           Gerenciar Tarefas
+
+
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="/Tarefa/Cadastro">Cadastra Tarefas</a></li>
+            <li><a class="dropdown-item" href="/Tarefa/Consulta">Consultar Tarefas</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled">Disabled</a>
+        </li>
+      </ul>
+      <form class="d-flex">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>
+      
+
+          <!--Exibir mensagem-->
+
+         @if(TempData["MensagemSucesso"] != null)
+           {
+              <div class="alert alert-success alert-dismissible fade show" role="alert">
+             <strong>Parabens !</strong> @TempData["MensagemSucesso"]
+             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+             </div>
+           }
+          else if(TempData["MensagemAlerta"] != null)
+           {
+              <div class="alert alert-warning alert-dismissible fade show" role="alert">
+             <strong>Alerta!</strong> @TempData["MensagemAlerta"]
+             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+             </div>
+           }
+            else if(TempData["MensagemErro"] != null)
+           {
+              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+             <strong>Erro!</strong> @TempData["MensagemErro"]
+             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+             </div>
+           }
+
+  <!-- paginas que vão carregar dentro dessa RenderBody -->
+
+   <div class="container mt-4">
+       @RenderBody()
+   </div>
+   <!-- referencias dos arquivos JavaScript -->
+    <script src="/js/bootstrap.js"></script>
+
+
+
+
+</body>
+</html>
