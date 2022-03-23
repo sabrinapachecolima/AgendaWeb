@@ -22,6 +22,9 @@ namespace AgendaWeb.Presentation.Controllers
 
             if (ModelState.IsValid)
             {
+
+
+                // try e catch e para tratar erros que dei no codigo
                 try
                 {
                     // criando um objeto da entidade tarefa
@@ -61,9 +64,35 @@ namespace AgendaWeb.Presentation.Controllers
         }
         // esse HTTPPOSTE e uma plaquinha do metodo para dizer que ele e está esperando o  submt
         [HttpPost] 
-        public IActionResult Consulta(TarefaConsultaModel model) /// Método para receber o evento de SUBMIT do formulário
+        public IActionResult Consulta(TarefaConsultaModel model, [FromServices] ITarefaRepositories tarefaRepositories) /// Método para receber o evento de SUBMIT do formulário
         {
-            return View();
+            // vericar se todos os campos estão correto(erro de validação)
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    // captura as datas enviadas pelo formulario 
+                    var dataMin = DateTime.Parse(model.DateMin);
+                    var dataMax = DateTime.Parse(model.DateMax);
+
+                    // consulta as tarefas no banco de dados e armazenar-las na lista de tarefa 'List<Tarefa>' da class 'model'
+                    model.Tarefa = tarefaRepositories.ConsultaPorData(dataMin, dataMax);
+
+                }
+                catch (Exception e)
+                {    
+                    // mensagem de erro
+                    TempData["MensagemErro"] = $"Falha ao cadastra tarefa: {e.Message}";
+                }
+                
+            }
+            else 
+            {
+                // gerando um mensagem de alerta
+                TempData["MensagemAlerta"] = $" Ocorreram erros de validação mo preechimento dos dados, por favor verifique o.";
+            }
+             // enviar os ddos da 'model' de volta para página 
+            return View(model);
         }
     }
 }
