@@ -93,6 +93,34 @@ namespace AgendaWeb.Presentation.Controllers
             }
              // enviar os ddos da 'model' de volta para página 
             return View(model);
+      
+        
         }
+       // metodo para processar a ação de exclusão
+       public IActionResult Exclusao(Guid id, [FromServices] ITarefaRepositories tarefaRepositories)
+        {
+            try
+            {
+                // capturar o id da terafa
+                var tarefa = new Tarefa();
+                tarefa.IdTarefa = id;
+
+                // excluir a tarefa 
+                tarefaRepositories.Excluir(tarefa);
+                TempData["MensagemSucesso"] = $" Tarefa excluida com sucesso! ";
+
+
+            }
+            catch(Exception e)
+
+            {
+                TempData["MensagemErro"] = $"Falha ao excluir a tarefa: {e.Message}";
+            }
+            // redirecionando de volta para consulta
+            return RedirectToAction("Consulta");
+
+        }
+    
     }
+
 }
