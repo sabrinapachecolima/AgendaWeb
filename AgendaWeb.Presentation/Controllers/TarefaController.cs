@@ -2,6 +2,7 @@
 using AgendaWeb.Infra.Data.Interfaces;
 using AgendaWeb.Presentation.Models;
 using Microsoft.AspNetCore.Mvc;
+using AgendaWeb.Infra.Data.Repositories;
 
 namespace AgendaWeb.Presentation.Controllers
 {
@@ -9,6 +10,8 @@ namespace AgendaWeb.Presentation.Controllers
 
     public class TarefaController : Controller
     {
+        private object tarefa;
+
         /// Método para abrir uma página (View)
         public IActionResult Cadastro()
         {
@@ -120,7 +123,35 @@ namespace AgendaWeb.Presentation.Controllers
             return RedirectToAction("Consulta");
 
         }
-    
+        // metodo para abrir a pagina de edição de tarefa
+        public IActionResult Edicao(Guid id, [FromServices] ITarefaRepositories tarefaRepositories)
+        {
+            var model = new TarefaEdicaoModel();
+            try
+            {
+                // busca no banco de dados o registro da tarefa atráves do ID
+                var tarefa = tarefaRepositories.ObterPorId(id);
+
+                // tranbsferir osw dados da intidfadew tarefa model
+                model.IdTarefa = tarefa.IdTarefa;
+                model.Nome = tarefa.Nome;
+                model.Data = tarefa.Data.ToString("yyyy-MM-dd");
+                model.Hora = tarefa.Hora.ToString(@"hh\:mm");
+                model.Descricao = tarefa.Descricao;
+                model.Prioridade = tarefa.Prioridade.ToString();
+
+
+
+            }
+            catch(Exception e)
+            {
+                TempData["MensagemErro"] = e.Message;
+            }
+            return View(model); 
+
+
+        }
+
     }
 
 }

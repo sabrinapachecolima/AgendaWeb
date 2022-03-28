@@ -1,23 +1,26 @@
 ﻿
-@* Definir a classe de modelo utilizada nesta página *@
-@model AgendaWeb.Presentation.Models.TarefaCadastroModel
 
+@model AgendaWeb.Presentation.Models.TarefaEdicaoModel
 @{
     
     Layout = "~/Views/Shared/Layout.cshtml";
 }
-
 <div>
-    <h5>Cadastro de Tarefas</h5>
-    <p> Preencha o formulário abaixo para incluir uma tarefa na sua agenda. </p>
-    <hr/>
+    
+<h5>Edição de tarefa</h5>
+<p>Utilize o formulario para atualizar os dados de tarefas </p>
 
- </div>
+</div>
+
+</div>
 
 
        @* criando o formulario*@
         @using(Html.BeginForm())
     {
+        <div>
+            @Html.HiddenFor(model => model.IdTarefa)
+        </div>
         @* row(linha) espaço 3 *@
         <div class="row mb-3"> 
 
@@ -100,7 +103,7 @@
          @* col(coluna) espaço 3  coluna que vai ser o botom*@
           <div class="col-md-12"> 
 
-             <input type="submit" value="Realizar Cadastro"
+             <input type="submit" value="Salvar Alterações "
                class="btn btn-success"/>
        </div>
    </div>
